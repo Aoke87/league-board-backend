@@ -11,8 +11,7 @@ export class AppController {
   }
 
   @Get()
-  async getHello(): Promise<string[]> {
-    const matches = await this.riotClientService.getFullMatchHistory('ChxWxTVlCG7QRDWq7-LHE8Rxe65HRyQVa2J-bBryThiWo2U18MKQh2yxtoEjrnRM1rvFt8lgEAkFRQ');
-    return matches;
+  async getHello(): Promise<string> {
+    return 'Hello World';
   }
 }
