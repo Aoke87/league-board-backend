@@ -11,7 +11,7 @@ export class Summoner {
   @Prop({ required: true })
   accountId: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true, dropDups: true })
   puuid: string;
 
   @Prop({ required: true })
