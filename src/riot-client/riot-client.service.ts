@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Constants, LolApi } from 'twisted';
 import {
   ApiResponseDTO,
-  CurrentGameInfoDTO, MatchV5DTOs,
-  SpectatorNotAvailableDTO,
+  CurrentGameInfoDTO, LeagueEntryDTO, MatchV5DTOs,
+  SpectatorNotAvailableDTO, SummonerLeagueDto,
   SummonerV4DTO
 } from 'twisted/dist/models-dto';
 import { RegionGroups } from 'twisted/dist/constants';
@@ -21,6 +21,11 @@ export class RiotClientService {
   public async summonerByName(name: string): Promise<SummonerV4DTO> {
     const summoner = await api.Summoner.getByName(name, Constants.Regions.EU_WEST);
     return summoner.response;
+  }
+
+  public async leagueBySummonerName(summonerId: string): Promise<SummonerLeagueDto[]> {
+    const leagueEntry = await api.League.bySummoner(summonerId, Constants.Regions.EU_WEST);
+    return leagueEntry.response;
   }
 
   public async getSummonerIngame(summonerId: string): Promise<SpectatorNotAvailableDTO | ApiResponseDTO<CurrentGameInfoDTO>> {

@@ -217,6 +217,7 @@ class InfoDto {
   @Prop({ required: true }) gameName: string;
   /** Unix timestamp for when match actually starts. */
   @Prop({ required: true }) gameStartTimestamp: number;
+  @Prop({ required: false }) gameEndTimestamp: number;
   @Prop({ required: true }) gameType: string;
   /** The first two parts can be used to determine the patch a game was played on. */
   @Prop({ required: true }) gameVersion: string;

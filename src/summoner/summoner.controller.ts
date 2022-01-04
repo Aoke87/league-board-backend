@@ -4,6 +4,7 @@ import { Summoner } from './summoner.schema';
 import { SummonerDto, SummonerParams } from './summoner.dto';
 import { SummonerV4DTO } from 'twisted/dist/models-dto';
 import { RiotClientService } from '../riot-client/riot-client.service';
+import { TestCronService } from '../test-cron/test-cron.service';
 
 
 @UsePipes(new ValidationPipe())
@@ -11,7 +12,8 @@ import { RiotClientService } from '../riot-client/riot-client.service';
 export class SummonerController {
   constructor(
     private readonly summonerService: SummonerService,
-    private readonly riotClientService: RiotClientService
+    private readonly riotClientService: RiotClientService,
+    private readonly cronService: TestCronService
   ) {
   }
 
@@ -30,5 +32,10 @@ export class SummonerController {
     @Param() params: SummonerParams
   ): Promise<SummonerV4DTO> {
     return this.riotClientService.summonerByName(params.name);
+  }
+
+  @Get('update-all')
+  updateAll(): Promise<Summoner[]> {
+    return this.cronService.updateSummoners();
   }
 }

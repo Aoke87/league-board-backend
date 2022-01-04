@@ -16,6 +16,11 @@ export class MatchV5Controller {
     return await this.matchService.getAllIdsQuery();
   }
 
+  @Get('latest')
+  async getLatest(): Promise<any[]> {
+    return await this.matchService.getLatest();
+  }
+
   @Get('riot/add/all')
   async getMatch(): Promise<void> {
     const matchIdsOfSummoner: string[] = await this.riotClientService.getFullMatchHistory('qCdKtICwMqqttj6Bvu1BTViQKLoW4rZYd6ljUuKIbJEptTC8i7iyPaokQ-_lv8YDX97cmAH2hGsx8Q');

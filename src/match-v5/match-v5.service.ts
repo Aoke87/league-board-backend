@@ -34,6 +34,14 @@ export class MatchV5Service {
     return this.matchV5Model.find().exec();
   }
 
+  async getLatest(): Promise<MatchV5Document[]> {
+    return this.matchV5Model
+      .find({})
+      .sort({ 'metadata.matchId': -1 })
+      .limit(10)
+      .exec();
+  }
+
   async getAllIdsQuery(): Promise<string[]> {
     const matches = await this.matchV5Model.aggregate([
       { $match: {} },

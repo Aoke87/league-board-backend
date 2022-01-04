@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { SummonerLeagueDto } from 'twisted/dist/models-dto';
 
 export type SummonerDocument = Summoner & Document;
 
@@ -25,6 +26,9 @@ export class Summoner {
 
   @Prop({ required: true })
   summonerLevel: number;
+
+  @Prop({ required: false })
+  leagues: SummonerLeagueDto[];
 }
 
 export const SummonerSchema = SchemaFactory.createForClass(Summoner);
