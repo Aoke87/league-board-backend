@@ -68,11 +68,17 @@ export class RiotClientService {
 
   private async getMatchIds(puuid: string, start: number, count?: number): Promise<string[]> {
     await this.utilsService.timeout(UTILS.RATE_LIMIT);
-    const response: ApiResponseDTO<string[]> = await api.MatchV5.list(puuid, RegionGroups.EUROPE, {
-      start,
-      count: count || 100
-    });
-    return response.response || [];
+    try {
+      const response: ApiResponseDTO<string[]> = await api.MatchV5.list(puuid, RegionGroups.EUROPE, {
+        start,
+        count: count || 100
+      });
+      console.log(response);
+      return response.response || [];
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
 
   public async getMatch(matchId: string, shouldRateLimit = false): Promise<ApiResponseDTO<MatchV5DTOs.MatchDto> | null> {
