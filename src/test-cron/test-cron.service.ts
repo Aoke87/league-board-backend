@@ -32,8 +32,8 @@ export class TestCronService {
     this.logger.verbose('⬆️  Updating summoners..');
     const allSummoners: SummonerDocument[] = await this.summonerService.getAll();
     for (const summonerModel of allSummoners) {
-      const leagues: SummonerLeagueDto[] = await this.riotClientService.leagueBySummonerName(summonerModel.id);
       const summonerApi = await this.riotClientService.summonerByName(summonerModel.name);
+      const leagues: SummonerLeagueDto[] = await this.riotClientService.leagueBySummonerName(summonerApi.id);
       summonerModel.name = summonerApi.name;
       summonerModel.summonerLevel = summonerApi.summonerLevel;
       summonerModel.id = summonerApi.id;
