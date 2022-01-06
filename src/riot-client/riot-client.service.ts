@@ -35,6 +35,7 @@ export class RiotClientService {
 
   public async getSummonerIngame(summonerId: string): Promise<SpectatorNotAvailableDTO | ApiResponseDTO<CurrentGameInfoDTO>> {
     try {
+      await this.utilsService.timeout(UTILS.RATE_LIMIT);
       const response = await api.Spectator.activeGame(summonerId, Constants.Regions.EU_WEST);
       return response as ApiResponseDTO<CurrentGameInfoDTO>;
     } catch (e) {
@@ -75,6 +76,7 @@ export class RiotClientService {
       });
       return response.response || [];
     } catch (err) {
+      this.logger.error(`getting match Id faild probably because of wrong puuid ${puuid} due to production `);
       return [];
     }
   }
