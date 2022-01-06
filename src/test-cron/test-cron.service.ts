@@ -11,7 +11,7 @@ import {
   SummonerLeagueDto,
 } from 'twisted/dist/models-dto';
 import { MatchV5Service } from '../match-v5/match-v5.service';
-import { UtilsService } from 'src/utils/utils.service';
+import { UTILS, UtilsService } from 'src/utils/utils.service';
 
 @Injectable()
 export class TestCronService {
@@ -119,7 +119,8 @@ export class TestCronService {
     const existingMatchIds: string[] = await this.matchService.getAllIdsQuery();
     let result = [];
     for (const summonerModel of allSummoners) {
-      const matchIds = await this.riotClientService.getMatchHistory(summonerModel.puuid, 30);
+      await this.utilsService.timeout(UTILS.RATE_LIMIT); 
+      const matchIds = await this.riotClientService.getMatchHistory(summonerModel.puuid, 10);
       result = [...result, ...matchIds];
     }
     const missingMatchIds = result.filter(matchId => !existingMatchIds.includes(matchId));
