@@ -12,6 +12,8 @@ import { RiotClientService } from './riot-client/riot-client.service';
 import { MatchV5Service } from './match-v5/match-v5.service';
 import { UtilsService } from './utils/utils.service';
 import { MatchV5Controller } from './match-v5/match-v5.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -20,7 +22,10 @@ import { MatchV5Controller } from './match-v5/match-v5.controller';
       { name: Summoner.name, schema: SummonerSchema },
       { name: MatchV5.name, schema: MatchV5Schema }
     ]),
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'league-board-frontend', 'dist'),
+    }),
   ],
   controllers: [AppController, SummonerController, MatchV5Controller],
   providers: [AppService, SummonerService, TestCronService, RiotClientService, MatchV5Service, UtilsService]

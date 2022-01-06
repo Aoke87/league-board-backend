@@ -38,6 +38,7 @@ export class MatchV5Service {
   async getLatest(): Promise<MatchV5Document[]> {
     return this.matchV5Model
       .find({})
+      .or([{'info.queueId': 440}, {'info.queueId': 420}])
       .sort({ 'metadata.matchId': -1 })
       .limit(10)
       .exec();

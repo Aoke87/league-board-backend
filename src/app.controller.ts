@@ -9,9 +9,4 @@ export class AppController {
     private readonly riotClientService: RiotClientService
   ) {
   }
-
-  @Get()
-  async getHello(): Promise<string> {
-    return 'Hello World';
-  }
 }
