@@ -73,10 +73,8 @@ export class RiotClientService {
         start,
         count: count || 100
       });
-      console.log(response);
       return response.response || [];
     } catch (err) {
-      console.log(err);
       return [];
     }
   }

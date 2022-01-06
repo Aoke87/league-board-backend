@@ -38,6 +38,7 @@ export class TestCronService {
       summonerModel.summonerLevel = summonerApi.summonerLevel;
       summonerModel.id = summonerApi.id;
       summonerModel.accountId = summonerApi.accountId;
+      summonerModel.puuid = summonerApi.puuid;
       summonerModel.profileIconId = summonerApi.profileIconId;
       summonerModel.revisionDate = summonerApi.revisionDate;
       summonerModel.leagues = leagues;
