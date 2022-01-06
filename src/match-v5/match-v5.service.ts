@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MatchV5, MatchV5Document } from './match-v5.schema';
@@ -7,6 +7,7 @@ import { MatchV5DTOs } from 'twisted/dist/models-dto';
 
 @Injectable()
 export class MatchV5Service {
+  private readonly logger = new Logger(MatchV5Service.name);
   constructor(
     @InjectModel(MatchV5.name) private matchV5Model: Model<MatchV5Document>
   ) {
@@ -21,7 +22,7 @@ export class MatchV5Service {
           return;
         }
         if (err && (err as any).code === 11000) {
-          console.log('dublicate found');
+          this.logger.warn('Match was not saved successfully. Dublicate was found');
           return;
         }
       });

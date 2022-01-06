@@ -1,25 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Constants, LolApi } from 'twisted';
 import {
   ApiResponseDTO,
-  CurrentGameInfoDTO, LeagueEntryDTO, MatchV5DTOs,
+  CurrentGameInfoDTO, MatchV5DTOs,
   SpectatorNotAvailableDTO, SummonerLeagueDto,
   SummonerV4DTO
 } from 'twisted/dist/models-dto';
 import { RegionGroups } from 'twisted/dist/constants';
 import { UTILS, UtilsService } from '../utils/utils.service';
 
-const api = new LolApi();
+const api = new LolApi({
+  debug: {
+    logRatelimits: true,
+  }
+});
 
 @Injectable()
 export class RiotClientService {
+  private readonly logger = new Logger(RiotClientService.name);
   constructor(
     private utilsService: UtilsService
   ) {
   }
 
   public async summonerByName(name: string): Promise<SummonerV4DTO> {
-    const summoner = await api.Summoner.getByName(name, Constants.Regions.EU_WEST);
+    const summoner: ApiResponseDTO<SummonerV4DTO> = await api.Summoner.getByName(name, Constants.Regions.EU_WEST);
     return summoner.response;
   }
 

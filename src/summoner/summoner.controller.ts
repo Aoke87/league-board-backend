@@ -38,4 +38,9 @@ export class SummonerController {
   updateAll(): Promise<Summoner[]> {
     return this.cronService.updateSummoners();
   }
+
+  // @Get('create-rank-snapshow')
+  // updateRanking(): Promise<Summoner[]> {
+  //   return this.cronService.updateSummonersRanking();
+  // }
 }
