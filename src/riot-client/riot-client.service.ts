@@ -11,7 +11,7 @@ import { UTILS, UtilsService } from '../utils/utils.service';
 
 const api = new LolApi({
   debug: {
-    logRatelimits: true,
+    logUrls: true,
   }
 });
 
