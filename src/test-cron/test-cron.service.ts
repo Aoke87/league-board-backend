@@ -42,7 +42,6 @@ export class TestCronService {
       summonerModel.profileIconId = summonerApi.profileIconId;
       summonerModel.revisionDate = summonerApi.revisionDate;
       summonerModel.leagues = leagues;
-      summonerModel.leagues2021 = leagues;
       this.updateSummonersRanking(summonerModel, leagues);
       await summonerModel.save();
     }
