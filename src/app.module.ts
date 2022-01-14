@@ -24,7 +24,7 @@ import { join } from 'path';
     ]),
     ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'league-board-frontend', 'dist'),
+      rootPath: join(__dirname, '..', 'client'),
     }),
   ],
   controllers: [AppController, SummonerController, MatchV5Controller],

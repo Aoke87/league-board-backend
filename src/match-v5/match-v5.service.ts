@@ -7,7 +7,9 @@ import { MatchV5DTOs } from 'twisted/dist/models-dto';
 
 @Injectable()
 export class MatchV5Service {
-  private readonly logger = new Logger(MatchV5Service.name);
+
+  private logger = new Logger(MatchV5Service.name);
+
   constructor(
     @InjectModel(MatchV5.name) private matchV5Model: Model<MatchV5Document>
   ) {
@@ -22,7 +24,7 @@ export class MatchV5Service {
           return;
         }
         if (err && (err as any).code === 11000) {
-          this.logger.warn('Match was not saved successfully. Dublicate was found');
+          console.log('Match was not saved successfully. Dublicate was found');
           return;
         }
       });

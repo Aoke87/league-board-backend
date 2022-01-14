@@ -76,7 +76,8 @@ export class RiotClientService {
       });
       return response.response || [];
     } catch (err) {
-      this.logger.error(`getting match Id faild probably because of wrong puuid ${puuid} due to production `);
+      this.logger.error(err.message);
+      this.logger.error(`getting match Id faild probably because of wrong puuid ${puuid} due to production`);
       return [];
     }
   }

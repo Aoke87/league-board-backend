@@ -31,9 +31,6 @@ export class MatchV5Controller {
     for (const matchId of missingMatchIds) {
       const match: ApiResponseDTO<MatchV5DTOs.MatchDto> = await this.riotClientService.getMatch(matchId, true);
       if (match) {
-        console.log(`Match: ${match.response.metadata.matchId} has been added`);
-        console.log(`AppRateLimitCount: ${match.rateLimits.AppRateLimitCount}`);
-        console.log(`MethodRatelimitCount: ${match.rateLimits.MethodRatelimitCount}`);
         await this.matchService.create(match.response);
       }
     }
