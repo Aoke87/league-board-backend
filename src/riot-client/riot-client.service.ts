@@ -28,6 +28,12 @@ export class RiotClientService {
     return summoner.response;
   }
 
+  public async summonerByPuuid(puuid: string): Promise<SummonerV4DTO> {
+    await this.utilsService.timeout(UTILS.RATE_LIMIT);
+    const summoner: ApiResponseDTO<SummonerV4DTO> = await api.Summoner.getByPUUID(puuid, Constants.Regions.EU_WEST);
+    return summoner.response;
+  }
+
   public async leagueBySummonerName(summonerId: string): Promise<SummonerLeagueDto[]> {
     const leagueEntry = await api.League.bySummoner(summonerId, Constants.Regions.EU_WEST);
     return leagueEntry.response;
