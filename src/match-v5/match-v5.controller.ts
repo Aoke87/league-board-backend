@@ -1,7 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiResponseDTO, PageParams, MatchV5DTOs } from 'twisted/dist/models-dto';
+import { IsString } from 'class-validator';
+import { ApiResponseDTO, MatchV5DTOs } from 'twisted/dist/models-dto';
 import { RiotClientService } from '../riot-client/riot-client.service';
 import { MatchV5Service } from './match-v5.service';
+
+class PageParams {
+  @IsString()
+  page: string;
+}
 
 @Controller('match-v5')
 export class MatchV5Controller {
