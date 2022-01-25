@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiResponseDTO, MatchV5DTOs } from 'twisted/dist/models-dto';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiResponseDTO, PageParams, MatchV5DTOs } from 'twisted/dist/models-dto';
 import { RiotClientService } from '../riot-client/riot-client.service';
 import { MatchV5Service } from './match-v5.service';
 
@@ -19,6 +19,13 @@ export class MatchV5Controller {
   @Get('latest')
   async getLatest(): Promise<any[]> {
     return await this.matchService.getLatest();
+  }
+
+  @Get('page/:page')
+  async getCount(
+    @Param() params: PageParams
+  ): Promise<any[]> {
+    return await this.matchService.getPage(params.page);
   }
 
   @Get('riot/add/all')

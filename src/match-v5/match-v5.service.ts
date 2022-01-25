@@ -46,6 +46,19 @@ export class MatchV5Service {
       .exec();
   }
 
+  async getPage(page: string): Promise<MatchV5Document[]> {
+    const pageLimit = 10;
+    const pageNum: number = Math.max(0, parseInt(page)) ;
+
+    return this.matchV5Model
+      .find({})
+      .or([{'info.queueId': 440}, {'info.queueId': 420}])
+      .sort({ 'metadata.matchId': -1 }) 
+      .limit(pageLimit)
+      .skip(pageNum * pageLimit)
+      .exec();
+  }
+
   async getAllIdsQuery(): Promise<string[]> {
     const matches = await this.matchV5Model.aggregate([
       { $match: {} },
