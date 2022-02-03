@@ -12,7 +12,7 @@ export class CurrentGame {
   currentGameId: number;
 
   @Prop({type : [{ type: MongooseSchema.Types.ObjectId, ref: 'Summoner' }]})
-  summoners: Summoner[];
+  summoners: string[];
 
   @Prop({ required: true })
   currentGameInfoDTO: CurrentGameInfoDTO;

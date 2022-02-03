@@ -33,7 +33,8 @@ export class CurrentGameService {
     }
 
     async get(currentGameId: number): Promise<CurrentGameDocument> {
-        const currentGame = await this.currentGameModel.findOne({ 'currentGameInfoDTO.gameId' : currentGameId }).populate('summoners').exec();
+        // const currentGame = await this.currentGameModel.findOne({ 'currentGameInfoDTO.gameId' : currentGameId }).populate('summoners').exec();
+        const currentGame = await this.currentGameModel.findOne({ 'currentGameInfoDTO.gameId' : currentGameId }).exec();
         if (currentGame) { return currentGame ;}
         return null;
     }

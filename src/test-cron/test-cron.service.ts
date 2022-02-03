@@ -83,16 +83,16 @@ export class TestCronService {
     }
 
     // push summoner to current game if summoner not already exists
-    if (existingCurrentGame && !this.doesSumExistOnCurrentGame(existingCurrentGame, summonerDoc)) {
-      existingCurrentGame.summoners = existingCurrentGame.summoners.map((sumDoc: SummonerDocument) => sumDoc._id);
+    if (existingCurrentGame && !this.doesSumExistOnCurrentGame(existingCurrentGame, summonerDoc._id)) {
+      console.log(`Adding summoner ${summonerDoc.name} to current Games`);
       existingCurrentGame.summoners.push(summonerDoc._id)
       existingCurrentGame.save();
       return existingCurrentGame;
     }
   }
 
-  private doesSumExistOnCurrentGame(currentGame: CurrentGameDocument, summonerDoc: SummonerDocument) {
-    return !!currentGame.summoners.find(sumInCurrentGameId => sumInCurrentGameId.puuid === summonerDoc.puuid);
+  private doesSumExistOnCurrentGame(currentGame: CurrentGameDocument, summonerDocId: string) {
+    return currentGame.summoners.includes(summonerDocId);
   }
 
   /**
