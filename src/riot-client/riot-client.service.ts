@@ -88,15 +88,14 @@ export class RiotClientService {
     }
   }
 
-  public async getMatch(matchId: string, shouldRateLimit = false): Promise<ApiResponseDTO<MatchV5DTOs.MatchDto> | null> {
-    if (shouldRateLimit) {
-      await this.utilsService.timeout(UTILS.RATE_LIMIT);
-    }
+  public async getMatch(matchId: string): Promise<ApiResponseDTO<MatchV5DTOs.MatchDto> | null> {
+
+    await this.utilsService.timeout(UTILS.RATE_LIMIT);
+
     try {
       const matchResult: ApiResponseDTO<MatchV5DTOs.MatchDto> = await api.MatchV5.get(matchId, RegionGroups.EUROPE);
       return matchResult;
     } catch (e) {
-      console.log(e);
       return null;
     }
   }

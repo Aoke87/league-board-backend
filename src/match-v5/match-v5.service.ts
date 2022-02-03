@@ -17,17 +17,23 @@ export class MatchV5Service {
 
   async create(matchV5Dto: MatchV5DTOs.MatchDto): Promise<MatchV5 | null> {
     try {
+      const existingMatch = await this.matchV5Model.findOne({ 'info.gameId': matchV5Dto.info.gameId }).exec();
+      if (existingMatch) {
+        this.logger.verbose(`Match ${matchV5Dto.info.gameId} already existed!`);
+        return null;
+      }
       const matchV5 = new this.matchV5Model(matchV5Dto);
       matchV5.save(function(err) {
         if (err && (err as any).code !== 11000) {
-          console.log(err);
+          this.logger.verbose(err);
           return;
         }
         if (err && (err as any).code === 11000) {
-          console.log('Match was not saved successfully. Dublicate was found');
+          this.logger.verbose('Match was not saved successfully. Dublicate was found');
           return;
         }
       });
+      this.logger.log(`New match added : ${matchV5Dto.info.gameId}`);
     } catch (e) {
       return null;
     }

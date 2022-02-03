@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { IsString } from 'class-validator';
+import { TestCronService } from 'src/test-cron/test-cron.service';
 import { ApiResponseDTO, MatchV5DTOs } from 'twisted/dist/models-dto';
 import { RiotClientService } from '../riot-client/riot-client.service';
 import { MatchV5Service } from './match-v5.service';
@@ -13,7 +14,8 @@ class PageParams {
 export class MatchV5Controller {
   constructor(
     readonly riotClientService: RiotClientService,
-    readonly matchService: MatchV5Service
+    readonly matchService: MatchV5Service,
+    readonly testCronService: TestCronService
   ) {
   }
 
@@ -42,12 +44,16 @@ export class MatchV5Controller {
     console.log(missingMatchIds[0]);
 
     for (const matchId of missingMatchIds) {
-      const match: ApiResponseDTO<MatchV5DTOs.MatchDto> = await this.riotClientService.getMatch(matchId, true);
+      const match: ApiResponseDTO<MatchV5DTOs.MatchDto> = await this.riotClientService.getMatch(matchId);
       if (match) {
         await this.matchService.create(match.response);
       }
     }
   }
 
+  @Get('riot/add-new')
+  async getAllMissingMatches() {
+    return await this.testCronService.getNewMatches();
+  }
 
 }

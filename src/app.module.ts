@@ -14,21 +14,25 @@ import { UtilsService } from './utils/utils.service';
 import { MatchV5Controller } from './match-v5/match-v5.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CurrentGameController } from './current-game/current-game.controller';
+import { CurrentGameService } from './current-game/current-game.service';
+import { CurrentGame, CurrentGameSchema } from './current-game/current-game.schema';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_DB_URL),
     MongooseModule.forFeature([
       { name: Summoner.name, schema: SummonerSchema },
-      { name: MatchV5.name, schema: MatchV5Schema }
+      { name: MatchV5.name, schema: MatchV5Schema },
+      { name: CurrentGame.name, schema: CurrentGameSchema },
     ]),
     ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
   ],
-  controllers: [AppController, SummonerController, MatchV5Controller],
-  providers: [AppService, SummonerService, TestCronService, RiotClientService, MatchV5Service, UtilsService]
+  controllers: [AppController, SummonerController, MatchV5Controller, CurrentGameController],
+  providers: [AppService, SummonerService, TestCronService, RiotClientService, MatchV5Service, UtilsService, CurrentGameService]
 })
 export class AppModule {
 }
