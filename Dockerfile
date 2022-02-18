@@ -1,5 +1,5 @@
 ### DEVELPOMENT CONFIGURATION ###
-FROM node:current-alpine3.14 AS development
+FROM node:16.5.0-alpine AS development
 
 WORKDIR /usr/src/app
 
@@ -13,7 +13,7 @@ RUN npm run build
 
 
 ### PRODUCTION CONFIGURATION ###
-FROM node:current-alpine3.14 AS production
+FROM node:16.5.0-alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
